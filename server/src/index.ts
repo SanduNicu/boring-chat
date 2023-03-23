@@ -1,8 +1,10 @@
-import express, { Request, Response, Application } from "express";
+import express, { Request, Response } from "express";
+import http from "http";
 import { WebSocketServer } from "ws";
 
-const app: Application = express();
-const wss = new WebSocketServer({ port: 8080 });
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
 
 const PORT = process.env.PORT || 8000;
 
@@ -10,16 +12,20 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("Hello Typescript with Node.js!");
 });
 
-app.listen(PORT, (): void => {
-  console.log(`Server Running here 👉 https://localhost:${PORT}`);
-});
-
-wss.on("connection", function connection(ws) {
-  ws.on("error", console.error);
-
-  ws.on("message", function message(data) {
-    console.log("received: %s", data);
+wss.on("connection", (ws) => {
+  console.log('New client connected');
+  
+  ws.on("message", (message: string) => {
+    //log the received message and send it back to the client
+    console.log("received: %s", message);
+    ws.send(`${message}`);
   });
 
-  ws.send("something");
+  //send immediatly a feedback to the incoming connection
+  // ws.send("Hi there, I am a WebSocket server");
+});
+
+//start our server
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}: `);
 });
