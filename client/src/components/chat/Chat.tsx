@@ -1,28 +1,18 @@
-import { useEffect, useState, KeyboardEvent, ChangeEvent } from "react";
+import { useState, KeyboardEvent, ChangeEvent } from "react";
+import useSockets from "../../hooks/useSockets";
 
 export default function Chat() {
   const [currentValue, setCurrentValue] = useState("");
-  const [socket, setSocket] = useState<WebSocket>();
   const [serverMessages, setServerMessages] = useState<string[]>([]);
 
   const handleServerMessage = (message: string) => {
     setServerMessages((mess) => [...mess, message]);
   };
-  console.log(serverMessages);
 
-  useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000");
-    socket.addEventListener("open", () => {
-      console.log("Connected to server");
-    });
-    setSocket(socket);
-    socket.addEventListener("message", (event: MessageEvent) => {
-      handleServerMessage(event.data);
-    });
-  }, []);
+  const { socket } = useSockets(handleServerMessage);
 
   if (!socket) {
-    return "Loading...";
+    return <div>Loading...</div>;
   }
 
   const sendMessage = () => {
