@@ -16,7 +16,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <section>
       <div>Choose your username:</div>
       <input
         type="text"
@@ -24,6 +24,6 @@ export default function Login() {
         onChange={handleChange}
         onKeyDown={handleEnterKeyPress}
       />
-    </div>
+    </section>
   );
 }

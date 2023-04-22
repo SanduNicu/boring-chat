@@ -1,10 +1,12 @@
 import express, { Request, Response } from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
+import register from "./api/auth/register";
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
+app.use(express.json())
 
 const PORT = process.env.PORT || 8000;
 
@@ -12,9 +14,11 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("Hello Typescript with Node.js!");
 });
 
+app.post('/register', register)
+
 wss.on("connection", (ws) => {
-  console.log('New client connected');
-  
+  console.log("New client connected");
+
   ws.on("message", (message: string) => {
     //log the received message and send it back to the client
     console.log("received: %s", message);
