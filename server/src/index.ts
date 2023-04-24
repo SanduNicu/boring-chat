@@ -1,12 +1,16 @@
 import express, { Request, Response } from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
+import bodyParser from "body-parser";
+import cors from "cors";
 import register from "./api/auth/register";
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
-app.use(express.json())
+app.use(cors({ origin: "http://localhost:5173" }));
+app.use(express.json());
+app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 8000;
 
@@ -14,7 +18,7 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("Hello Typescript with Node.js!");
 });
 
-app.post('/register', register)
+app.post("/register", register);
 
 wss.on("connection", (ws) => {
   console.log("New client connected");

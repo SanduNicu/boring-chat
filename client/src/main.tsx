@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/login/Login";
-import Register from "./components/Register";
+import Register from "./components/register/Register";
 import { Provider as ReduxProvider } from "react-redux";
 import {
   defaultTheme,

@@ -7,7 +7,8 @@ import { emailValidator, nameValidator, passwordValidator } from "../helpers";
 async function register(req: Request, res: Response) {
   const { error } = await connectToDB();
   if (error) {
-    return console.log("error");
+    console.log("error");
+    return res.status(500).json({ error: "DB problem" });
   }
 
   const { name, email, password } = req.body;
@@ -32,15 +33,14 @@ async function register(req: Request, res: Response) {
   }
 
   const hashPassword = await hash(password, 12);
+
   User.create({
     name: name,
     email: email,
     password: hashPassword,
   })
-    .then((data) => res.status(200).json({ user: data }))
+    .then(({ name, email }) => res.status(200).json({ user: { name, email } }))
     .catch((err) => res.status(400).json({ error: err }));
-
-  // res.status(200).json({ success: true });
 }
 
 export default register;
