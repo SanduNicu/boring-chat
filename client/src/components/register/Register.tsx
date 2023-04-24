@@ -1,10 +1,10 @@
-import { Button, Form, TextField } from "@adobe/react-spectrum";
+import { Button, Flex, Form, TextField } from "@adobe/react-spectrum";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../api/user";
 import { User } from "../../types/user";
 import { validation } from "./helpers";
 import { useNavigate } from "react-router-dom";
-import styles from "./styles.module.scss";
+import { flexCenterPage } from "../../constants/constants";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -20,11 +20,11 @@ const Register = () => {
   const passwordField = register("password", validation.password);
 
   const onSubmit = (values: User) => {
-    registerUser(values).then(() => navigate('/login'));
+    registerUser(values).then(() => navigate("/login"));
   };
 
   return (
-    <section className={styles.wrapper}>
+    <Flex {...flexCenterPage}>
       <h1>Register</h1>
       <Form maxWidth="size-3600" onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -63,7 +63,7 @@ const Register = () => {
           Register
         </Button>
       </Form>
-    </section>
+    </Flex>
   );
 };
 

@@ -2,7 +2,7 @@ import { User } from "../types/user";
 
 const registerURL = "http://localhost:8000/register";
 
-export function registerUser(data: User) {
+export async function registerUser(data: User) {
   return fetch(registerURL, {
     method: "POST",
     headers: {
