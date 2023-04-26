@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { flexCenterPage } from "../../constants/constants";
 
 export const Welcome = () => {
+
   const navigate = useNavigate();
   return (
     <Flex {...flexCenterPage}>

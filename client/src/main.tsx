@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Welcome } from "./components/welcome/Welcome";
-import Login from "./components/login/Login";
-import Register from "./components/register/Register";
 import { Provider as ReduxProvider } from "react-redux";
 import {
   defaultTheme,
@@ -11,6 +9,9 @@ import {
 } from "@adobe/react-spectrum";
 import { store } from "./redux/store";
 import "./styles.scss";
+import Chat from "./components/chat/Chat";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/chat",
+    element: <Chat />,
   },
 ]);
 

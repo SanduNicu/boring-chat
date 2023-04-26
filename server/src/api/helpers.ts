@@ -1,3 +1,6 @@
+const emailRegex =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 export const emailValidator = (email: string) => {
   let isValid = true;
   let error = "";
@@ -5,7 +8,7 @@ export const emailValidator = (email: string) => {
   if (!email) {
     isValid = false;
     error = "Email not found! ";
-  } else if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+  } else if (!email.match(emailRegex)) {
     isValid = false;
     error = "Email format not valid";
   }

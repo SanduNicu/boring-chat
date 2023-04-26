@@ -7,7 +7,6 @@ import { emailValidator, nameValidator, passwordValidator } from "../helpers";
 async function register(req: Request, res: Response) {
   const { error } = await connectToDB();
   if (error) {
-    console.log("error");
     return res.status(500).json({ error: "DB problem" });
   }
 
@@ -29,7 +28,9 @@ async function register(req: Request, res: Response) {
   const emailAlreadyTaken = await User.findOne({ email });
 
   if (emailAlreadyTaken) {
-    return res.status(400).json({ error: "Email already taken!" });
+    return res
+      .status(400)
+      .json({ error: { message: "Email already taken!", field: "email" } });
   }
 
   const hashPassword = await hash(password, 12);

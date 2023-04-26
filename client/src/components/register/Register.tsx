@@ -1,7 +1,7 @@
 import { Button, Flex, Form, TextField } from "@adobe/react-spectrum";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../api/user";
-import { User } from "../../types/user";
+import { UserRegisterData } from "../../types/user";
 import { validation } from "./helpers";
 import { useNavigate } from "react-router-dom";
 import { flexCenterPage } from "../../constants/constants";
@@ -12,15 +12,22 @@ const Register = () => {
     register,
     handleSubmit,
     setValue,
+    setError,
     formState: { errors },
-  } = useForm<User>();
+  } = useForm<UserRegisterData>();
 
   const nameField = register("name", validation.name);
   const emailField = register("email", validation.email);
   const passwordField = register("password", validation.password);
 
-  const onSubmit = (values: User) => {
-    registerUser(values).then(() => navigate("/login"));
+  const onSubmit = async (values: UserRegisterData) => {
+    const { error } = await registerUser(values);
+
+    if (error) {
+      setError(error.field, { message: error.message });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

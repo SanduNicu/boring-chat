@@ -4,6 +4,7 @@ import { WebSocketServer } from "ws";
 import bodyParser from "body-parser";
 import cors from "cors";
 import register from "./api/auth/register";
+import login from "./api/auth/login";
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +20,7 @@ app.get("/", (req: Request, res: Response): void => {
 });
 
 app.post("/register", register);
+app.post("/login", login);
 
 wss.on("connection", (ws) => {
   console.log("New client connected");
