@@ -7,7 +7,7 @@ import { flexCenterPage } from "../../constants/constants";
 import { setUser } from "../../redux/userSlice/userSlice";
 import { UserLoginData } from "../../types/user";
 
-export default function Login() {
+function Login() {
   const navigate = useNavigate();
   const {
     register,
@@ -59,3 +59,5 @@ export default function Login() {
     </Flex>
   );
 }
+
+export default Login;

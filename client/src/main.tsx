@@ -12,6 +12,7 @@ import "./styles.scss";
 import Chat from "./components/chat/Chat";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import Layout from "./components/shared/layout/Layout";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/chat",
-    element: <Chat />,
+    element: (
+      <Layout>
+        <Chat />
+      </Layout>
+    ),
   },
 ]);
 
